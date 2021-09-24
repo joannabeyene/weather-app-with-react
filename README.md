@@ -1,1 +1,3 @@
-# weather-app-with-react
+# To Start Weather App with React Project
+
+npm install
