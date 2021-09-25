@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 const api = {
   key: "ca419d860870597f10881db6e7521d4c",
-  base: "api.openweathermap.org/data/2.5/"
+  base: "http://api.openweathermap.org/data/2.5/"
 }
 function App() {
 
@@ -9,13 +9,15 @@ function App() {
   const [weather, setWeather] = useState('');
 
   const search = evt => {
-    if (evt.key === 'Enter') {
+    if (evt.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-      .then(res=> res.json())
+      .then(res => res.json())
       .then(result => {
         setWeather(result);
         setQuery('');
         console.log(result)
+        }).catch(err => {
+          console.log("Error Reading data: " + err);
         });
     }
   }
@@ -26,7 +28,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="app">
      <main>
        <div className='search-box'>
         <input type="text" 
@@ -39,7 +41,7 @@ function App() {
         {(typeof weather.main != 'undefined') ? (
           <div>
             <div className='location-box'>
-              <div className='location'>{weather.name}, {weather.sys.country}</div>
+              <div className='location'>{weather.name},{weather.sys.country}</div>
               <div className='date'>{dateBuilder(new Date())}</div>
             </div>
             <div className='weather-box'>
